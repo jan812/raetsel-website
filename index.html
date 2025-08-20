@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rätsel-Webseite</title>
+  <title>Rätsel-Website</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: url('fbi-logo.jpg') no-repeat center center fixed;
+      background-image: url('fbi-background.jpg'); /* Dein Bild hier */
       background-size: cover;
+      background-position: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
@@ -30,20 +31,68 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    #raetselContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
-<div id="popup">
-  <h2>Willkommen!</h2>
-  <button onclick="openRaetsel('heute')">Heutiges Rätsel</button>
-  <button onclick="openRaetsel('gestern')">Gestriges Rätsel</button>
-</div>
+  <div id="popup">
+    <h2>Willkommen!</h2>
+    <button onclick="zeigeRaetsel('heute')">Heutiges Rätsel</button>
+    <button onclick="zeigeRaetsel('gestern')">Gestern</button>
 
-<script>
-  function openRaetsel(tag) {
-    const url = tag === 'heute' ? 'heutiges_raetsel.html' : 'gestern_raetsel.html';
-    window.open(url, '_blank'); // Öffnet neues Fenster / Tab
-  }
-</script>
+    <div id="raetselContainer">
+      <p id="frage">Hier erscheint das Rätsel</p>
+      <input id="antwort" type="text" placeholder="Deine Antwort">
+      <button onclick="pruefeAntwort()">Überprüfen</button>
+    </div>
+  </div>
+
+  <script>
+    // Alle Rätsel vorbereiten
+    const raetsel = {
+      "2025-08-21": { frage: "Rätsel für 21.8.", loesung: "Antwort21" },
+      "2025-08-22": { frage: "Rätsel für 22.8.", loesung: "Antwort22" },
+      "2025-08-23": { frage: "Rätsel für 23.8.", loesung: "Antwort23" },
+      // weitere Tage hier eintragen
+    };
+
+    let aktuellesRaetsel;
+
+    function zeigeRaetsel(tag) {
+      let datum = new Date();
+      if (tag === 'gestern') {
+        datum.setDate(datum.getDate() - 1);
+      }
+      const datumString = datum.toISOString().slice(0,10);
+      aktuellesRaetsel = raetsel[datumString];
+
+      if (aktuellesRaetsel) {
+        document.getElementById("frage").textContent = aktuellesRaetsel.frage;
+      } else {
+        document.getElementById("frage").textContent = "Kein Rätsel für diesen Tag!";
+      }
+
+      document.getElementById("raetselContainer").style.display = 'block';
+    }
+
+    function pruefeAntwort() {
+      const input = document.getElementById("antwort").value;
+      if (aktuellesRaetsel && input === aktuellesRaetsel.loesung) {
+        alert("Richtig! Die Zahl lautet: 42"); // Beispiel
+      } else {
+        alert("Falsch! Versuche es noch einmal.");
+      }
+    }
+  </script>
 </body>
 </html>
