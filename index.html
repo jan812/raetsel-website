@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rätsel-Webseite</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('fbi-logo.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.95);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="popup">
+  <h2>Willkommen!</h2>
+  <button onclick="openRaetsel('heute')">Heutiges Rätsel</button>
+  <button onclick="openRaetsel('gestern')">Gestriges Rätsel</button>
+</div>
+
+<script>
+  function openRaetsel(tag) {
+    const url = tag === 'heute' ? 'heutiges_raetsel.html' : 'gestern_raetsel.html';
+    window.open(url, '_blank'); // Öffnet neues Fenster / Tab
+  }
+</script>
+</body>
+</html>
