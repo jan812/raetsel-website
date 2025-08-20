@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heutiges Rätsel</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    input { padding: 8px; font-size: 16px; }
+    button { padding: 8px 16px; font-size: 16px; margin-left: 5px; }
+    #feedback { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Gestriges Rätsel</h2>
+  <p id="raetsel-text">Rätsel: Was ist 9 * 2?</p>
+  <input type="text" id="antwort" placeholder="Deine Antwort">
+  <button onclick="checkAntwort()">Prüfen</button>
+  <p id="feedback"></p>
+
+  <script>
+    const loesung = "18";
+
+    function checkAntwort() {
+      const userAntwort = document.getElementById('antwort').value.trim();
+      const feedback = document.getElementById('feedback');
+      if(userAntwort === loesung) {
+        feedback.innerText = "Richtig! Deine Zahl: " + loesung;
+        feedback.style.color = 'green';
+      } else {
+        feedback.innerText = "Falsch, versuche es noch einmal!";
+        feedback.style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
